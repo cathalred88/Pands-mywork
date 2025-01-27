@@ -1,0 +1,1 @@
+print("this is a file to test weekly tasks folder")
