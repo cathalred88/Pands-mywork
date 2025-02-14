@@ -16,17 +16,8 @@ Boolean = bool(True)
 String = str("String")
 mylist = ["apple", "banana", "carrot"]
 
-print type(Integer)
-print (Integer)
-
-print type(Float)
-print (Float)
-
-print type(Boolean)
-print (Boolean)
-
-print type(String) 
-print (String)
-
-print type(mylist) 
-print (mylist)
+print('Variable {} is of type: {} and value {}'.format('Integer', type(Integer), Integer))
+print('Variable {} is of type: {} and value {}'.format('Float', type(Float), Float))
+print('Variable {} is of type: {} and value {}'.format('Boolean', type(Boolean), Boolean))
+print('Variable {} is of type: {} and value {}'.format('String', type(String), String ))
+print('Variable {} is of type: {} and value {}'.format('myList', type(mylist), mylist ))
