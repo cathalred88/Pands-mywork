@@ -11,7 +11,7 @@ cycleCount = int(0)
 # initialize oneCounter to zero
 oneCounter = int(0)
 
-print('Initial value set to: {}'. format(cycleCount)) 
+print('Initial value set to: {}'. format(x)) 
 
 
 while oneCounter < 1:
