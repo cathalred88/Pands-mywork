@@ -1,0 +1,46 @@
+# weekday.py
+# returns whether or not the day is a weekday, without any user prompt. 
+# Author: Cathal Redmond 25 Feb 2025
+# reference materail: https://docs.python.org/3/library/datetime.html & https://www.w3schools.com/python/python_datetime.asp
+# troubleshooting advice from here https://stackoverflow.com/questions/12906402/type-object-datetime-datetime-has-no-attribute-datetime
+
+
+# import datetime module as dt so we can differientiate it against the class type with the same name
+import datetime as dt
+# sets the x variable to be the time value for "now", which takes a snapshot of the time the code is executed.
+# x = dt.datetime.now()
+# alternative code to allow the date to be set manually, to check the else branch of the if statement in line 25
+x = dt.datetime(2025, 2, 12)
+
+# returns the exact date and time as an object with a "hash number" (eg. 0x0000025956B230F0)
+# print(x.isoweekday)
+
+# returns the weekday in string format which is more readable for humans. %A is the code for weekday written out in longformat - as "Wednesday"
+# print(x.strftime("%A"))
+y = int(x.strftime("%w"))
+z = str(x.strftime("%A"))
+
+# manually check the outputs have correct formats and contents - disabled from running in final code 
+# print(x)
+# print (type(x))
+# print (y)
+# print (type(y))
+# print (z)
+# print (type(z))
+
+if (z == ('Saturday')): 
+    print ("it is {}, which is the weekend, Yay".format(z))
+elif (z == ('Sunday')):
+    print ("it is {}, which is the weekend, Yay".format(z))
+else:
+    print ("Yes, unfortunately today is {}, a weekday. ".format(z))
+
+
+# i struggled to get the sunday to read correctly as part of a "nested if-or" statement here. 
+# Sunday returns the Int value 0 for Y, which should be included in the if branch, but i cannot get the if statement to detect it properly. possibly due to a type mismatch between strings and integers ? 
+
+# if (y == (0 or 6)): 
+    # print ("it is {}, which is the weekend, Yay".format(z))
+
+# else:
+    # print ("Yes, unfortunately today is {}, a weekday. ".format(z))
