@@ -22,6 +22,7 @@ The desired outcomes of this excercise are many; the primary goal is to learn ho
 The secondary, more important intention is that the student will learn how to research the techniques needed to perform the task in an efficient and expedient manner. The student will need to go beyond what has been taught in lectures to achieve this goal; and therefore will learn the higher cognative goals of research and self-directed problem solving, which are essential in the perpetually evolving modern digital landscape. As new tools become available, they bring with them a raft of new compatability and integration issues; This is the norm for rapidly advancing technical fields - by learning the problem solving tools on an extremely popular system using a well documented dataset, a robust framework can be built from which to tackle more intensive or specialist techniques. 
 
 
+
 (1) https://en.wikipedia.org/wiki/Iris_flower_data_set
 (2) https://en.wikipedia.org/wiki/Multivariate_statistics
 (3) https://en.wikipedia.org/wiki/Edgar_Anderson
