@@ -29,6 +29,7 @@ FILENAME ="iris.data"
         #return json.load(f)
 
 ## Main Program
-df = pd.read_fwf(FILENAME)
+df = pd.read_fwf(FILENAME, sep=',', names=["Sepal Length","Sepal Width","Petal Length","Petal Width","Species"])
+pd.options.display.max_rows = 150
 print(df)
 print(df.describe())
