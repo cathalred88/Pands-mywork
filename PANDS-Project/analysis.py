@@ -11,9 +11,25 @@
 # This approach should peform 2 main objectives: primary goal to set a SMART goal in which i am timebound to copmlete the project by a certain date (* deadlines help my ADHD brain), and secondly to allow for the inevetable delays and interruptions that are a frequent feaure of my life!
 
 ## Import libraries & Functions
+#import numpy as np
+#import matplotlib.pyplot as plt
+import pandas as pd
 
 ## Definitions of variables
+path = "../PANDS-Project/"
+FILENAME ="iris.csv"
+sample = dict(sepalLength = 5.1, sepalWidth = 3.5 , petalLength = 1.4, petalWidth = 0.2, Species="Setosa")
 
 ## Subroutine definitions
 
+#def readDict():
+    # this will throw an error if the file does not exist
+    # it should readly just return an empty dict
+    # we can do this later
+    #with open(FILENAME) as f:
+        #return json.load(f)
+
 ## Main Program
+df = pd.read_csv(FILENAME)
+print(df)
+print(df.describe())
