@@ -18,7 +18,6 @@ import pandas as pd
 ## Definitions of variables
 path = "../PANDS-Project/"
 FILENAME ="iris.csv"
-sample = dict(sepalLength = 5.1, sepalWidth = 3.5 , petalLength = 1.4, petalWidth = 0.2, Species="Setosa")
 
 ## Subroutine definitions
 
