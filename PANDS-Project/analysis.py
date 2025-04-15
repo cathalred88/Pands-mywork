@@ -17,7 +17,7 @@ import pandas as pd
 
 ## Definitions of variables
 path = "../PANDS-Project/"
-FILENAME ="iris.csv"
+FILENAME ="iris.data"
 
 ## Subroutine definitions
 
@@ -29,6 +29,6 @@ FILENAME ="iris.csv"
         #return json.load(f)
 
 ## Main Program
-df = pd.read_csv(FILENAME)
+df = pd.read_fwf(FILENAME)
 print(df)
 print(df.describe())
