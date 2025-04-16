@@ -3,6 +3,11 @@
 # Author Cathal Redmond 14 April 2025. 
 
 ## References
+# https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html
+# https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html
+# https://www.statology.org/pandas-scatter-plot-multiple-columns/
+
+
 
 ## Project plan / Design intent 
 # I have started this project late as i was busy with work first, then i was away on holiday with no access to my laptop, so i now have 4 weeks to complete this project. 
@@ -14,10 +19,11 @@
 #import numpy as np
 #import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as pt
 
 ## Definitions of variables
 path = "../PANDS-Project/"
-FILENAME ="iris.data"
+FILENAME ="iris.txt"
 
 ## Subroutine definitions
 
@@ -29,7 +35,16 @@ FILENAME ="iris.data"
         #return json.load(f)
 
 ## Main Program
-df = pd.read_fwf(FILENAME, sep=',', names=["Sepal Length","Sepal Width","Petal Length","Petal Width","Species"])
+df = pd.read_fwf(FILENAME, indexcol = 0, delimiter =',', names=["Sepal Length","Sepal Width","Petal Length","Petal Width","Species"])
 pd.options.display.max_rows = 150
-print(df)
-print(df.describe())
+#print(df)
+#print(df.groupby('Species').describe())
+describe = df.groupby('Species').describe()
+print (describe)
+ax1=df.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c= 'red', label = 'Sepal')
+ax2=df.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = ',', c= 'blue', label = 'Petal', ax = ax1)
+
+ax1.set_xlabel('Length')
+ax1.set_ylabel('Width')
+pt.show()
+print (df.corr(numeric_only=True))
