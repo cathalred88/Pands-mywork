@@ -6,6 +6,7 @@
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html
 # https://www.statology.org/pandas-scatter-plot-multiple-columns/
+# https://www.geeksforgeeks.org/get-unique-values-from-a-column-in-pandas-dataframe/
 
 
 
@@ -18,8 +19,10 @@
 ## Import libraries & Functions
 #import numpy as np
 #import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pt
+import matplotlib.patches as mpatches
 
 ## Definitions of variables
 path = "../PANDS-Project/"
@@ -39,12 +42,27 @@ df = pd.read_fwf(FILENAME, indexcol = 0, delimiter =',', names=["Sepal Length","
 pd.options.display.max_rows = 150
 #print(df)
 #print(df.groupby('Species').describe())
+
+#Get Description of dataset using Describe function
 describe = df.groupby('Species').describe()
 print (describe)
-ax1=df.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c= 'red', label = 'Sepal')
-ax2=df.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = ',', c= 'blue', label = 'Petal', ax = ax1)
 
+#Detect unique values in Column and assign those values to a set which will then be used for grouping in the plots. 
+uniqueSpecies = df['Species'].unique()
+print(uniqueSpecies)
+
+# define plot parameters
+colors = ['r','g','b','y', ]
+df["color"] = df.apply(lambda x: colors[x["group"]], axis=1)
+ax1=df.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c=df["color"], label = 'Sepal')
+ax2=df.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = ',', label = 'Petal', ax = ax1, legend =True)
+
+# define plot labels
 ax1.set_xlabel('Length')
 ax1.set_ylabel('Width')
+# command to show plot 
 pt.show()
+
+
+# Display Correlation between variables. 
 print (df.corr(numeric_only=True))
