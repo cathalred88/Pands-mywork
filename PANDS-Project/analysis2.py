@@ -30,6 +30,7 @@ FILENAME ="iris.txt"
 
 ## Subroutine definitions
 
+
 #def readDict():
     # this will throw an error if the file does not exist
     # it should readly just return an empty dict
@@ -51,32 +52,24 @@ print (describe)
 uniqueSpecies = df['Species'].unique()
 print(uniqueSpecies)
 
-# split the dataframe into smaller dataframes by column value (species type)
-df1 = df[df['Species'] == uniqueSpecies[0]]
-df2 = df[df['Species'] == uniqueSpecies[1]]
-df3 = df[df['Species'] == uniqueSpecies[2]]
-#print (df1)
-#print (df2)
-#print (df3)
+#create a data frame dictionary to store your data frames
+DataFrameDict = {elem : pd.DataFrame() for elem in uniqueSpecies}
+
+for key in DataFrameDict.keys():
+    DataFrameDict[key] = df[:][df.["Species"] == key]
 
 # define plot parameters
 colors = ['r','g','b','y', ]
-ax1=df1.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c = 'red' , label = 'Setosa Sepal')
-ax2=df1.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'magenta', label = 'Setosa Petal', ax = ax1)
-ax3=df2.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c = 'blue' , label = 'Versicolor Sepal',ax = ax1)
-ax4=df2.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'cyan', label = 'Versicolor Petal', ax = ax1)
-ax5=df3.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c = 'yellow' , label = 'Virginica Sepal',ax = ax1)
-ax6=df3.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'orange', label = 'Virginica Petal', ax = ax1, legend =True)
-
-
+df["color"] = df.apply(lambda x: colors[x["group"]], axis=1)
+ax1=df.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c=df["color"], label = 'Sepal')
+ax2=df.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = ',', label = 'Petal', ax = ax1, legend =True)
 
 # define plot labels
 ax1.set_xlabel('Length')
 ax1.set_ylabel('Width')
 # command to show plot 
+pt.show()
 
-#pt.show()
-pt.savefig('scatterplotsummary.png')
 
 # Display Correlation between variables. 
 print (df.corr(numeric_only=True))
