@@ -7,6 +7,9 @@
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html
 # https://www.statology.org/pandas-scatter-plot-multiple-columns/
 # https://www.geeksforgeeks.org/get-unique-values-from-a-column-in-pandas-dataframe/
+# https://www.w3schools.com/python/matplotlib_scatter.asp
+# https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it
+
 
 
 
@@ -52,14 +55,17 @@ uniqueSpecies = df['Species'].unique()
 print(uniqueSpecies)
 
 # split the dataframe into smaller dataframes by column value (species type)
-df1 = df[df['Species'] == uniqueSpecies[0]]
-df2 = df[df['Species'] == uniqueSpecies[1]]
-df3 = df[df['Species'] == uniqueSpecies[2]]
+df1 = df[df['Species'] == uniqueSpecies[0]] #Setosa
+df2 = df[df['Species'] == uniqueSpecies[1]] #Versicolor
+df3 = df[df['Species'] == uniqueSpecies[2]] #Virginicia
 #print (df1)
 #print (df2)
 #print (df3)
 
-# define plot parameters
+'''
+#Scatterplot
+# define plot parameters - 
+# come back to this because i should be able to run this in a for loop to select the different species names automatically from Unique Species array. 
 colors = ['r','g','b','y', ]
 ax1=df1.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c = 'red' , label = 'Setosa Sepal')
 ax2=df1.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'magenta', label = 'Setosa Petal', ax = ax1)
@@ -67,8 +73,6 @@ ax3=df2.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '
 ax4=df2.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'cyan', label = 'Versicolor Petal', ax = ax1)
 ax5=df3.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c = 'yellow' , label = 'Virginica Sepal',ax = ax1)
 ax6=df3.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'orange', label = 'Virginica Petal', ax = ax1, legend =True)
-
-
 
 # define plot labels
 ax1.set_xlabel('Length')
@@ -80,3 +84,22 @@ pt.savefig('scatterplotsummary.png')
 
 # Display Correlation between variables. 
 print (df.corr(numeric_only=True))
+
+
+# Histograms for Petal and Sepal length each species
+ax7 = df1.plot(kind = 'hist', title ='Histogram of Setosa Measurments', xlabel = 'Length (cm)', ylabel = 'Frequency')
+ax8 = df2.plot(kind = 'hist', title ='Histogram of Versicolor Measurments', xlabel = 'Length (cm)', ylabel = 'Frequency')
+ax9 = df3.plot(kind = 'hist', title ='Histogram of Virginicia Measurments', xlabel = 'Length (cm)', ylabel = 'Frequency')
+
+pt.savefig('histogramSetosa.png')
+pt.show()
+'''
+
+# Now i want to slice the histograms the other way, showing 1 variable: (length of petal etc) for each species for comparison
+ax10 = df1.plot(kind = 'hist', label = 'Setosa', column =["Petal Length","Species"], title = 'Petal lengths for each species', xlabel = 'length in cm', ylabel = 'frequency')
+ax11 = df2.plot(kind = 'hist', label = 'Versicolor', column =["Petal Length","Species"], xlabel = 'length in cm', ylabel = 'frequency', ax = ax10)
+ax12 = df3.plot(kind = 'hist', label = 'Virginica', column =["Petal Length","Species"], xlabel = 'length in cm', ylabel = 'frequency', ax = ax10)
+
+
+pt.savefig('HistogramPetalLenght.png')
+pt.show()
