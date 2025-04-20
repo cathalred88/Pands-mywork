@@ -25,13 +25,40 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pt
-import matplotlib.patches as mpatches
+import pylab as plt
+from matplotlib.patches import Rectangle
 
 ## Definitions of variables
 path = "../PANDS-Project/"
-FILENAME ="iris.txt"
+FILENAME ="iris.data"
+null = 0
 
 ## Subroutine definitions
+
+'''
+#Read if output file is present
+FILENAME = "Summary.txt"
+def readSummary():
+    try:
+        with open(FILENAME) as f:
+            summary = int(f.read())
+            return summary
+    except IOError:
+        # this file will be created when we write back.
+        # no file assumes first time running
+        # ie no summary performed before this execution
+        print ("Summary.txt file does not exist, it will be be created now")
+        return null
+
+def writeSummary(summary):
+    with open(FILENAME, "wt") as f:
+    # write takes a string so we need to convert
+        f.write(str(summary))
+
+'''
+
+
+
 
 #def readDict():
     # this will throw an error if the file does not exist
@@ -95,11 +122,43 @@ pt.savefig('histogramSetosa.png')
 pt.show()
 '''
 
-# Now i want to slice the histograms the other way, showing 1 variable: (length of petal etc) for each species for comparison
-ax10 = df1.plot(kind = 'hist', label = 'Setosa', column =["Petal Length","Species"], title = 'Petal lengths for each species', xlabel = 'length in cm', ylabel = 'frequency')
-ax11 = df2.plot(kind = 'hist', label = 'Versicolor', column =["Petal Length","Species"], xlabel = 'length in cm', ylabel = 'frequency', ax = ax10)
-ax12 = df3.plot(kind = 'hist', label = 'Virginica', column =["Petal Length","Species"], xlabel = 'length in cm', ylabel = 'frequency', ax = ax10)
-
-
+# Now i want to slice the historams the other way, showing 1 variable: (length of petal etc) for each species for comparison
+# for petal length: 
+ax10 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Petal Length","Species"], title = 'Petal lengths for each species', xlabel = 'Petal length in cm', ylabel = 'Frequency',edgecolor = "black")
+ax11 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Petal Length","Species"], xlabel = 'Petal length in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax10)
+ax12 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Petal Length","Species"], xlabel = 'Petal length in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax10)
+labels = "Iris-Setosa", "Iris-Versicolor", "Iris-Virginica"
+pt.legend(labels)
 pt.savefig('HistogramPetalLenght.png')
+#pt.show()
+
+#for petal width:
+ax13 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Petal Width","Species"], title = 'Petal widths for each species', xlabel = 'Petal width in cm', ylabel = 'Frequency',edgecolor = "black")
+ax14 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Petal Width","Species"], xlabel = 'Petal width in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax13)
+ax15 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Petal Width","Species"], xlabel = 'Petal width in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax13)
+pt.legend(labels)
+pt.savefig('HistogramPetalWidth.png')
+#pt.show()
+
+#for sepal length:
+ax16 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Sepal Length","Species"], title = 'Sepal lengths for each species', xlabel = 'Sepal length in cm', ylabel = 'Frequency',edgecolor = "black")
+ax17 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Sepal Length","Species"], xlabel = 'Sepal length in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax16)
+ax18 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Length","Species"], xlabel = 'Sepal length in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax16)
+pt.legend(labels)
+pt.savefig('HistogramSepalLenght.png')
+#pt.show()
+
+# for sepal width:
+ax19 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Sepal Width","Species"], title = 'Sepal Widths for each species', xlabel = 'Sepal Width in cm', ylabel = 'Frequency',edgecolor = "black")
+ax20 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Sepal Width","Species"], xlabel = 'Sepal Width in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax19)
+ax21 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Width","Species"], xlabel = 'Sepal Width in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax19)
+pt.legend(labels)
+pt.savefig('HistogramSepalWidth.png')
 pt.show()
+
+
+#summary = readSummary()
+summary = describe
+print(summary)
+#print (f"Description saved in Summary.txt file") 
+#writeSummary(summary)
