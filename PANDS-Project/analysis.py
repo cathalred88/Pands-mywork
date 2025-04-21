@@ -25,13 +25,12 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pt
-import pylab as plt
-from matplotlib.patches import Rectangle
+
 
 ## Definitions of variables
 path = "../PANDS-Project/"
 FILENAME ="iris.data"
-null = 0
+FILENAMEOUTPUT = "Summary.txt"
 
 ## Subroutine definitions
 
@@ -74,7 +73,8 @@ pd.options.display.max_rows = 150
 #print(df.groupby('Species').describe())
 
 #Get Description of dataset using Describe function
-describe = df.groupby('Species').describe()
+describe = df.groupby('Species').describe(include = 'all')
+pd.set_option('display.max_columns', None)
 print (describe)
 
 #Detect unique values in Column and assign those values to a set which will then be used for grouping in the plots. 
@@ -157,8 +157,9 @@ pt.savefig('HistogramSepalWidth.png')
 pt.show()
 
 
-#summary = readSummary()
-summary = describe
-print(summary)
-#print (f"Description saved in Summary.txt file") 
-#writeSummary(summary)
+# print description on screen
+#print(describe)
+
+with open(FILENAMEOUTPUT, "wt") as f:
+    f.write(str(describe))
+print (f"Description saved in Summary.txt file") 
