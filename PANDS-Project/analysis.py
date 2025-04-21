@@ -25,6 +25,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pt
+import scipy.stats as st
 
 
 ## Definitions of variables
@@ -106,8 +107,9 @@ ax1.set_xlabel('Length')
 ax1.set_ylabel('Width')
 # command to show plot 
 
-#pt.show()
 pt.savefig('scatterplotsummary.png')
+#pt.show()
+
 
 # Display Correlation between variables. 
 print (df.corr(numeric_only=True))
@@ -155,6 +157,9 @@ ax21 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Width",
 pt.legend(labels)
 pt.savefig('HistogramSepalWidth.png')
 pt.show()
+
+# Perform a 2-sample t test on the variables
+st.ttest_ind(a=df1("Petal Length"), b=df2("Petal Length"), equal_var=True)
 
 
 # print description on screen
