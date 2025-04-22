@@ -9,6 +9,7 @@
 # https://www.geeksforgeeks.org/get-unique-values-from-a-column-in-pandas-dataframe/
 # https://www.w3schools.com/python/matplotlib_scatter.asp
 # https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it
+# https://python-graph-gallery.com/scatterplot-with-regression-fit-in-matplotlib/
 
 
 
@@ -25,7 +26,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pt
-import scipy.stats as st
+#import scipy.stats as st
 
 
 ## Definitions of variables
@@ -76,11 +77,11 @@ pd.options.display.max_rows = 150
 #Get Description of dataset using Describe function
 describe = df.groupby('Species').describe(include = 'all')
 pd.set_option('display.max_columns', None)
-print (describe)
+#print (describe)
 
 #Detect unique values in Column and assign those values to a set which will then be used for grouping in the plots. 
 uniqueSpecies = df['Species'].unique()
-print(uniqueSpecies)
+#print(uniqueSpecies)
 
 # split the dataframe into smaller dataframes by column value (species type)
 df1 = df[df['Species'] == uniqueSpecies[0]] #Setosa
@@ -90,7 +91,7 @@ df3 = df[df['Species'] == uniqueSpecies[2]] #Virginicia
 #print (df2)
 #print (df3)
 
-'''
+
 #Scatterplot
 # define plot parameters - 
 # come back to this because i should be able to run this in a for loop to select the different species names automatically from Unique Species array. 
@@ -102,13 +103,44 @@ ax4=df2.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = '
 ax5=df3.plot(kind = 'scatter', x = 'Sepal Length', y = 'Sepal Width', marker = '.', c = 'yellow' , label = 'Virginica Sepal',ax = ax1)
 ax6=df3.plot(kind = 'scatter', x = 'Petal Length', y = 'Petal Width', marker = 'x', c = 'orange', label = 'Virginica Petal', ax = ax1, legend =True)
 
+#calculate the straight line best fits for each dataset pair
+b1, a1 = np.polyfit(df1['Sepal Length'], df1['Sepal Width'], deg=1)
+b2, a2 = np.polyfit(df1['Petal Length'], df1['Petal Width'], deg=1)
+b3, a3 = np.polyfit(df2['Sepal Length'], df2['Sepal Width'], deg=1)
+b4, a4 = np.polyfit(df2['Petal Length'], df2['Petal Width'], deg=1)
+b5, a5 = np.polyfit(df3['Sepal Length'], df3['Sepal Width'], deg=1)
+b6, a6 = np.polyfit(df3['Petal Length'], df3['Petal Width'], deg=1)
+# set upper and lower limits for lines to start and finish at 
+xseq1 = np.linspace(min(df1['Sepal Length']), max(df1['Sepal Length']), num=100)
+xseq2 = np.linspace(min(df1['Petal Length']), max(df1['Petal Length']), num=100)
+xseq3 = np.linspace(min(df2['Sepal Length']), max(df2['Sepal Length']), num=100)
+xseq4 = np.linspace(min(df2['Petal Length']), max(df2['Petal Length']), num=100)
+xseq5 = np.linspace(min(df3['Sepal Length']), max(df3['Sepal Length']), num=100)
+xseq6 = np.linspace(min(df3['Petal Length']), max(df3['Petal Length']), num=100)
+
+#print a & b pairs for each pair
+print(b1,a1)
+print(b2,a2)
+print(b3,a3)
+print(b4,a4)
+print(b5,a5)
+print(b6,a6)
+
+# add straight line regression lines to each scatterplot pair
+ax22=pt.plot(xseq1, a1 + b1 * xseq1, c = 'red', label = 'Setosa Sepal')
+ax23=pt.plot(xseq2, a2 + b2 * xseq2, c = 'magenta', label = 'Setosa Petal')
+ax24=pt.plot(xseq3, a3 + b3 * xseq3, c = 'blue' , label = 'Versicolor Sepal')
+ax25=pt.plot(xseq4, a4 + b4 * xseq4, c = 'cyan', label = 'Versicolor Petal')
+ax26=pt.plot(xseq5, a5 + b5 * xseq5, c = 'yellow' , label = 'Virginica Sepal')
+ax27=pt.plot(xseq6, a6 + b6 * xseq6, c = 'orange', label = 'Virginica Petal')
+
 # define plot labels
 ax1.set_xlabel('Length')
 ax1.set_ylabel('Width')
 # command to show plot 
 
 pt.savefig('scatterplotsummary.png')
-#pt.show()
+pt.show()
 
 
 # Display Correlation between variables. 
@@ -121,8 +153,8 @@ ax8 = df2.plot(kind = 'hist', title ='Histogram of Versicolor Measurments', xlab
 ax9 = df3.plot(kind = 'hist', title ='Histogram of Virginicia Measurments', xlabel = 'Length (cm)', ylabel = 'Frequency')
 
 pt.savefig('histogramSetosa.png')
-pt.show()
-'''
+#pt.show()
+
 
 # Now i want to slice the historams the other way, showing 1 variable: (length of petal etc) for each species for comparison
 # for petal length: 
@@ -156,10 +188,10 @@ ax20 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Sepal Width"
 ax21 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Width","Species"], xlabel = 'Sepal Width in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax19)
 pt.legend(labels)
 pt.savefig('HistogramSepalWidth.png')
-pt.show()
+#pt.show()
 
 # Perform a 2-sample t test on the variables
-st.ttest_ind(a=df1("Petal Length"), b=df2("Petal Length"), equal_var=True)
+#st.ttest_ind(a=df1("Petal Length"), b=df2("Petal Length"), equal_var=True)
 
 
 # print description on screen
