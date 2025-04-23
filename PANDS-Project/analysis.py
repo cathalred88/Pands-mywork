@@ -10,6 +10,8 @@
 # https://www.w3schools.com/python/matplotlib_scatter.asp
 # https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it
 # https://python-graph-gallery.com/scatterplot-with-regression-fit-in-matplotlib/
+# https://www.geeksforgeeks.org/how-to-select-single-column-of-a-pandas-dataframe/
+
 
 
 
@@ -91,7 +93,7 @@ df3 = df[df['Species'] == uniqueSpecies[2]] #Virginicia
 #print (df2)
 #print (df3)
 
-
+'''
 #Scatterplot
 # define plot parameters - 
 # come back to this because i should be able to run this in a for loop to select the different species names automatically from Unique Species array. 
@@ -139,8 +141,8 @@ ax1.set_xlabel('Length')
 ax1.set_ylabel('Width')
 # command to show plot 
 
-pt.savefig('scatterplotsummary.png')
-pt.show()
+#pt.savefig('scatterplotsummary.png')
+#pt.show()
 
 
 # Display Correlation between variables. 
@@ -157,7 +159,7 @@ pt.savefig('histogramSetosa.png')
 
 
 # Now i want to slice the historams the other way, showing 1 variable: (length of petal etc) for each species for comparison
-# for petal length: 
+# Histogram for petal length: 
 ax10 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Petal Length","Species"], title = 'Petal lengths for each species', xlabel = 'Petal length in cm', ylabel = 'Frequency',edgecolor = "black")
 ax11 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Petal Length","Species"], xlabel = 'Petal length in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax10)
 ax12 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Petal Length","Species"], xlabel = 'Petal length in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax10)
@@ -166,7 +168,7 @@ pt.legend(labels)
 pt.savefig('HistogramPetalLenght.png')
 #pt.show()
 
-#for petal width:
+# Histogram for petal width:
 ax13 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Petal Width","Species"], title = 'Petal widths for each species', xlabel = 'Petal width in cm', ylabel = 'Frequency',edgecolor = "black")
 ax14 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Petal Width","Species"], xlabel = 'Petal width in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax13)
 ax15 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Petal Width","Species"], xlabel = 'Petal width in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax13)
@@ -174,7 +176,7 @@ pt.legend(labels)
 pt.savefig('HistogramPetalWidth.png')
 #pt.show()
 
-#for sepal length:
+# Histogram for sepal length:
 ax16 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Sepal Length","Species"], title = 'Sepal lengths for each species', xlabel = 'Sepal length in cm', ylabel = 'Frequency',edgecolor = "black")
 ax17 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Sepal Length","Species"], xlabel = 'Sepal length in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax16)
 ax18 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Length","Species"], xlabel = 'Sepal length in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax16)
@@ -182,13 +184,29 @@ pt.legend(labels)
 pt.savefig('HistogramSepalLenght.png')
 #pt.show()
 
-# for sepal width:
+# Histogram for sepal width:
 ax19 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Sepal Width","Species"], title = 'Sepal Widths for each species', xlabel = 'Sepal Width in cm', ylabel = 'Frequency',edgecolor = "black")
 ax20 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Sepal Width","Species"], xlabel = 'Sepal Width in cm', ylabel = 'Frequency',edgecolor = "black", ax = ax19)
 ax21 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Width","Species"], xlabel = 'Sepal Width in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax19)
 pt.legend(labels)
 pt.savefig('HistogramSepalWidth.png')
 #pt.show()
+'''
+# Boxplots - show a variable's mean & spread for each species, makes for easy visual comparisons 
+# Boxplot for Sepal Width
+#arrays = [df1['Sepal Width'],df1['Sepal Length'],df1['Petal Width'],df1['Petal Length'],df2['Sepal Width'],df2['Sepal Length'],df2['Petal Width'],df2['Petal Length'],df3['Sepal Width'],df3['Sepal Length'],df3['Petal Width'],df3['Petal Length']]
+#pos = np.arange(len(arrays))
+ax22 = df1.plot(kind = 'box', column = ["Sepal Width"], positions = [1] , title = 'Sepal Widths for each species', xlabel= 'Setosa', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'red' )
+ax23 = df2.plot(kind = 'box', column = ["Sepal Width"], positions = [2] ,title = 'Sepal Widths for each species', xlabel= 'Versicolor', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'green', ax = ax22)
+ax24 = df3.plot(kind = 'box', column = ["Sepal Width"], positions = [3] ,title = 'Sepal Widths for each species', xlabel= 'Virginica', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'blue', ax = ax22 )
+pt.show()
+
+# Boxplot for Sepal Length
+
+# Boxplot for Petal Width
+
+# Boxplot for Petal Width
+
 
 # Perform a 2-sample t test on the variables
 #st.ttest_ind(a=df1("Petal Length"), b=df2("Petal Length"), equal_var=True)
