@@ -11,6 +11,8 @@
 # https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it
 # https://python-graph-gallery.com/scatterplot-with-regression-fit-in-matplotlib/
 # https://www.geeksforgeeks.org/how-to-select-single-column-of-a-pandas-dataframe/
+# https://stackoverflow.com/questions/40892300/set-y-axis-scale-for-pandas-dataframe-boxplot-3-deviations
+# 
 
 
 
@@ -192,20 +194,61 @@ pt.legend(labels)
 pt.savefig('HistogramSepalWidth.png')
 #pt.show()
 '''
+
+
 # Boxplots - show a variable's mean & spread for each species, makes for easy visual comparisons 
+# I will display these as a 2x2 subplot to make visualising these easier. 
 # Boxplot for Sepal Width
-#arrays = [df1['Sepal Width'],df1['Sepal Length'],df1['Petal Width'],df1['Petal Length'],df2['Sepal Width'],df2['Sepal Length'],df2['Petal Width'],df2['Petal Length'],df3['Sepal Width'],df3['Sepal Length'],df3['Petal Width'],df3['Petal Length']]
-#pos = np.arange(len(arrays))
-ax22 = df1.plot(kind = 'box', column = ["Sepal Width"], positions = [1] , title = 'Sepal Widths for each species', xlabel= 'Setosa', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'red' )
-ax23 = df2.plot(kind = 'box', column = ["Sepal Width"], positions = [2] ,title = 'Sepal Widths for each species', xlabel= 'Versicolor', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'green', ax = ax22)
-ax24 = df3.plot(kind = 'box', column = ["Sepal Width"], positions = [3] ,title = 'Sepal Widths for each species', xlabel= 'Virginica', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'blue', ax = ax22 )
-pt.show()
+fig, axes = pt.subplots(nrows=1, ncols=4, sharex = True, sharey = True)
+
+ax22 = df1.plot(kind = 'box', column = ["Sepal Width"], positions = [1] ,title = 'Sepal Widths', xlabel= 'Setosa', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'red', ax=axes[0] )
+ax23 = df2.plot(kind = 'box', column = ["Sepal Width"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax22)
+ax24 = df3.plot(kind = 'box', column = ["Sepal Width"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax22 )
+ax22.set_ylim(0.0, 8.0)
+
+# Boxplot for Petal Width
+ax25 = df1.plot(kind = 'box', column = ["Petal Width"], positions = [1] ,title = 'Petal Widths', xlabel= 'Setosa', ylabel = 'Petal Width in cm', patch_artist=True, color = 'red',ax=axes[1] )
+ax26 = df2.plot(kind = 'box', column = ["Petal Width"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax25)
+ax27 = df3.plot(kind = 'box', column = ["Petal Width"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax25 )
+ax25.set_ylim(0.0, 8.0)
 
 # Boxplot for Sepal Length
+ax28 = df1.plot(kind = 'box', column = ["Sepal Length"], positions = [1] , title = 'Sepal Length', ylabel = 'Sepal Length in cm', patch_artist=True, color = 'red', ax=axes[2] )
+ax29 = df2.plot(kind = 'box', column = ["Sepal Length"], positions = [2] , patch_artist=True, color = 'green', ax = ax28)
+ax30 = df3.plot(kind = 'box', column = ["Sepal Length"], positions = [3] , patch_artist=True, color = 'blue', ax = ax28)
+ax28.set_ylim(0.0, 8.0)
 
-# Boxplot for Petal Width
+# Boxplot for Petal Length
+ax31 = df1.plot(kind = 'box', column = ["Petal Length"], positions = [1] , title = 'Petal Length', xlabel= 'Setosa', ylabel = 'Petal Length in cm', patch_artist=True, color = 'red', ax=axes[3] )
+ax32 = df2.plot(kind = 'box', column = ["Petal Length"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax31)
+ax33 = df3.plot(kind = 'box', column = ["Petal Length"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax31)
+ax31.set_ylim(0.0, 8.0)
+pt.xticks(rotation=90)
 
-# Boxplot for Petal Width
+
+#handles, labels = ax22.get_legend_handles_labels()
+#fig.legend(handles, labels, loc='upper center')
+boxplotLabels = ['Setosa','Versicolor','Virginca']
+fig.legend(labels=boxplotLabels, loc = 'upper left')
+fig.set_size_inches(18.5, 10.5)
+
+pt.savefig('SubplotBoxplots.png')
+pt.show()
+
+# Subplot definition
+'''
+fig, axes = pt.subplots(nrows=2, ncols=2,)
+
+axes[0, 0].
+axes[0, 1].
+axes[1, 0].
+axes[1, 1].
+'''
+
+
+
+
+
 
 
 # Perform a 2-sample t test on the variables
