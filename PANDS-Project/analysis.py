@@ -12,7 +12,10 @@
 # https://python-graph-gallery.com/scatterplot-with-regression-fit-in-matplotlib/
 # https://www.geeksforgeeks.org/how-to-select-single-column-of-a-pandas-dataframe/
 # https://stackoverflow.com/questions/40892300/set-y-axis-scale-for-pandas-dataframe-boxplot-3-deviations
-# 
+# https://stackoverflow.com/questions/9834452/how-do-i-make-a-single-legend-for-many-subplots
+# https://stackoverflow.com/questions/31186019/rotate-tick-labels-in-subplot
+# https://stackoverflow.com/questions/27878217/how-do-i-extend-the-margin-at-the-bottom-of-a-figure-in-matplotlib
+
 
 
 
@@ -205,33 +208,48 @@ ax22 = df1.plot(kind = 'box', column = ["Sepal Width"], positions = [1] ,title =
 ax23 = df2.plot(kind = 'box', column = ["Sepal Width"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax22)
 ax24 = df3.plot(kind = 'box', column = ["Sepal Width"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax22 )
 ax22.set_ylim(0.0, 8.0)
+ax22.tick_params(axis='x', rotation=90)
+
 
 # Boxplot for Petal Width
 ax25 = df1.plot(kind = 'box', column = ["Petal Width"], positions = [1] ,title = 'Petal Widths', xlabel= 'Setosa', ylabel = 'Petal Width in cm', patch_artist=True, color = 'red',ax=axes[1] )
 ax26 = df2.plot(kind = 'box', column = ["Petal Width"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax25)
 ax27 = df3.plot(kind = 'box', column = ["Petal Width"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax25 )
 ax25.set_ylim(0.0, 8.0)
+ax25.tick_params(axis='x', rotation=90)
+
 
 # Boxplot for Sepal Length
 ax28 = df1.plot(kind = 'box', column = ["Sepal Length"], positions = [1] , title = 'Sepal Length', ylabel = 'Sepal Length in cm', patch_artist=True, color = 'red', ax=axes[2] )
 ax29 = df2.plot(kind = 'box', column = ["Sepal Length"], positions = [2] , patch_artist=True, color = 'green', ax = ax28)
 ax30 = df3.plot(kind = 'box', column = ["Sepal Length"], positions = [3] , patch_artist=True, color = 'blue', ax = ax28)
 ax28.set_ylim(0.0, 8.0)
+ax28.tick_params(axis='x', rotation=90)
+
 
 # Boxplot for Petal Length
 ax31 = df1.plot(kind = 'box', column = ["Petal Length"], positions = [1] , title = 'Petal Length', xlabel= 'Setosa', ylabel = 'Petal Length in cm', patch_artist=True, color = 'red', ax=axes[3] )
 ax32 = df2.plot(kind = 'box', column = ["Petal Length"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax31)
 ax33 = df3.plot(kind = 'box', column = ["Petal Length"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax31)
 ax31.set_ylim(0.0, 8.0)
-pt.xticks(rotation=90)
-
+ax31.tick_params(axis='x', rotation=90)
 
 #handles, labels = ax22.get_legend_handles_labels()
 #fig.legend(handles, labels, loc='upper center')
 boxplotLabels = ['Setosa','Versicolor','Virginca']
 fig.legend(labels=boxplotLabels, loc = 'upper left')
+ax22.tick_params('x', labelbottom=False)
+ax25.tick_params('x', labelbottom=False)
+ax28.tick_params('x', labelbottom=False)
+ax31.tick_params('x', labelbottom=False)
+
+
+fig.subplots_adjust(bottom=0.2)
+fig.subplots_adjust(wspace=0.0)
+
 fig.set_size_inches(18.5, 10.5)
 
+#pt.xticks(rotation=90)
 pt.savefig('SubplotBoxplots.png')
 pt.show()
 
