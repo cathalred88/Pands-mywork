@@ -31,24 +31,23 @@ mean = 5
 values = np.random.normal(mean, stdDev, size)
 print(values)
 
-#formula for creating a histogram from the standard deviation points
-hist = pt.hist(values, 100)
+
 
 # script for creating the plot for equation y(x)=x3  ## substutiting Y for H
 x = np.linspace(0,10, 1000)
 equation = pow(x,3)
 
-# script for defining the plot Contents & Area formatting
-fig = pt.figure(figsize=(5,3))
-ax = fig.add_subplot(111)
-ax2 = ax.twinx()
+# defining the plot Contents & Area formatting
+fig, ax = pt.subplots(1, 1, sharex=True, sharey=False)
+ax1 = ax.twinx()
+ax1 = pt.plot(x, equation, 'r', alpha = 0.8, label = 'Function')
 
-l1 = ax.hist(x, 100 , label="frequency")
-l2 = ax2.plot(x,equation, c='r')
+#formula for creating a histogram from the standard deviation points
+ax2 = pt.hist(values, 100, label = 'Histogram')
 
-ax2.set_yscale("log")
-ax2.legend(handles=[l1,l2])
-
-ax.set_ylabel("Linear axis")
-ax2.set_ylabel("Logarithmic axis")
+ax.set_xlabel('X- value')
+ax.set_ylabel('Frequency')
+pt.savefig('Combinedcharts.png')
+pt.legend()
+pt.draw()
 pt.show()
