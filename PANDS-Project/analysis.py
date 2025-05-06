@@ -5,16 +5,17 @@
 ## References
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html
-# https://www.statology.org/pandas-scatter-plot-multiple-columns/
-# https://www.geeksforgeeks.org/get-unique-values-from-a-column-in-pandas-dataframe/
-# https://www.w3schools.com/python/matplotlib_scatter.asp
-# https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it
-# https://python-graph-gallery.com/scatterplot-with-regression-fit-in-matplotlib/
-# https://www.geeksforgeeks.org/how-to-select-single-column-of-a-pandas-dataframe/
-# https://stackoverflow.com/questions/40892300/set-y-axis-scale-for-pandas-dataframe-boxplot-3-deviations
-# https://stackoverflow.com/questions/9834452/how-do-i-make-a-single-legend-for-many-subplots
-# https://stackoverflow.com/questions/31186019/rotate-tick-labels-in-subplot
-# https://stackoverflow.com/questions/27878217/how-do-i-extend-the-margin-at-the-bottom-of-a-figure-in-matplotlib
+# https://www.statology.org/pandas-scatter-plot-multiple-columns/                                               
+# https://www.geeksforgeeks.org/get-unique-values-from-a-column-in-pandas-dataframe/                            DETECT AND RETURN UNIQUE VALUES 
+# https://www.w3schools.com/python/matplotlib_scatter.asp                                                       create scatter plots
+# https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it                  save plots images   
+# https://python-graph-gallery.com/scatterplot-with-regression-fit-in-matplotlib/                               create scatterplots with regression lines
+# https://www.geeksforgeeks.org/how-to-select-single-column-of-a-pandas-dataframe/                              pull a single column from a dataframe
+# https://stackoverflow.com/questions/40892300/set-y-axis-scale-for-pandas-dataframe-boxplot-3-deviations       info on boxplots 
+# https://stackoverflow.com/questions/9834452/how-do-i-make-a-single-legend-for-many-subplots   info on subplots
+# https://stackoverflow.com/questions/31186019/rotate-tick-labels-in-subplot                    help on rotating text in subplots
+# https://stackoverflow.com/questions/27878217/how-do-i-extend-the-margin-at-the-bottom-of-a-figure-in-matplotlib for formatting the plot space and making the graphs look pretty 
+# https://codefinity.com/courses/v2/a849660e-ddfa-4033-80a6-94a1b7772e23/7c0ab871-30f8-490e-b08b-e7f86e04824b/04674d31-fc5a-4ad8-b0e3-40a321dc4964 for T-tests 
 
 
 
@@ -22,18 +23,18 @@
 
 
 ## Project plan / Design intent 
-# I have started this project late as i was busy with work first, then i was away on holiday with no access to my laptop, so i now have 4 weeks to complete this project. 
+# I have started this project late as i was busy with work - my time managment is not where it needs to be! 
 # I will manage this project timeline in the Burn-down approach, where my submission date is the endpoint and i need to allot my time backwards from there to achieve the program fucntionality. 
 # I intend to have the main program functionally complete by the end of week 2, which allows for a week of clean up / improvements, and a week of overshoot mitigation. 
 # This approach should peform 2 main objectives: primary goal to set a SMART goal in which i am timebound to copmlete the project by a certain date (* deadlines help my ADHD brain), and secondly to allow for the inevetable delays and interruptions that are a frequent feaure of my life!
 
 ## Import libraries & Functions
-#import numpy as np
-#import matplotlib.pyplot as plt
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pt
-#import scipy.stats as st
+import scipy.stats as st
+import sys
 
 
 ## Definitions of variables
@@ -196,7 +197,7 @@ ax21 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Width",
 pt.legend(labels)
 pt.savefig('HistogramSepalWidth.png')
 #pt.show()
-'''
+
 
 
 # Boxplots - show a variable's mean & spread for each species, makes for easy visual comparisons 
@@ -254,7 +255,7 @@ pt.savefig('SubplotBoxplots.png')
 pt.show()
 
 # Subplot definition
-'''
+
 fig, axes = pt.subplots(nrows=2, ncols=2,)
 
 axes[0, 0].
@@ -269,13 +270,28 @@ axes[1, 1].
 
 
 
-# Perform a 2-sample t test on the variables
-#st.ttest_ind(a=df1("Petal Length"), b=df2("Petal Length"), equal_var=True)
+# Perform a 2-sample t test on 2 sample variables
+a = df1['Petal Length'] # setosa petal length
+print(np.mean(a))
+b = df2['Petal Length'] # versicolor petal length
+print(np.mean(b))
+
+t_stat, p_value = st.ttest_ind(a , b, equal_var=False, alternative ="two-sided")
+print('The t-stat is {}'.format(t_stat))
+print('The P-Value is {}'.format(p_value))
+
+# Check if we should support or not the null hypothesis if pvalue > 0.05:
+if p_value > 0.05:
+    print('For the selected variables, Setosa Petal length & Versicolor Petal length, We support the null hypothesis, the mean values do not vary by a statistically significant amount')
+else:
+    print('For the selected variables, Setosa Petal length & Versicolor Petal length, We reject the null hypothesis, there is a statistical difference between the means of these sets')
+
 
 
 # print description on screen
-#print(describe)
-
+# print(describe)
+'''
 with open(FILENAMEOUTPUT, "wt") as f:
     f.write(str(describe))
 print (f"Description saved in Summary.txt file") 
+'''
