@@ -16,6 +16,7 @@
 # https://stackoverflow.com/questions/31186019/rotate-tick-labels-in-subplot                    help on rotating text in subplots
 # https://stackoverflow.com/questions/27878217/how-do-i-extend-the-margin-at-the-bottom-of-a-figure-in-matplotlib for formatting the plot space and making the graphs look pretty 
 # https://codefinity.com/courses/v2/a849660e-ddfa-4033-80a6-94a1b7772e23/7c0ab871-30f8-490e-b08b-e7f86e04824b/04674d31-fc5a-4ad8-b0e3-40a321dc4964 for T-tests 
+# https://www.geeksforgeeks.org/how-to-perform-a-one-way-anova-in-python/ ANOVA
 
 
 
@@ -35,6 +36,7 @@ import pandas as pd
 import matplotlib.pyplot as pt
 import scipy.stats as st
 import sys
+import seaborn as sns
 
 
 ## Definitions of variables
@@ -79,7 +81,7 @@ def writeSummary(summary):
 ## Main Program
 df = pd.read_fwf(FILENAME, indexcol = 0, delimiter =',', names=["Sepal Length","Sepal Width","Petal Length","Petal Width","Species"])
 pd.options.display.max_rows = 150
-#print(df)
+print(df)
 #print(df.groupby('Species').describe())
 
 #Get Description of dataset using Describe function
@@ -269,24 +271,49 @@ axes[1, 1].
 
 
 
+#Define Variables for analysis in comparative tests
+a = df1['Sepal Width'] # setosa petal length
+print('Mean of Setosa Petal length is ',np.mean(a))
+b = df2['Sepal Width'] # versicolor petal length
+print('Mean of Versicolor Petal length is ',np.mean(b))
+c = df3['Sepal Width'] # Virginica petal length
+print('Mean of Virginica Petal length is ',np.mean(c))
+print('\n')
 
 # Perform a 2-sample t test on 2 sample variables
-a = df1['Petal Length'] # setosa petal length
-print(np.mean(a))
-b = df2['Petal Length'] # versicolor petal length
-print(np.mean(b))
-
-t_stat, p_value = st.ttest_ind(a , b, equal_var=False, alternative ="two-sided")
+print('T-Test Results - analyses between 2 sets of variables only (useful for head to head comparison analysis)')
+t_stat, t_testp_value = st.ttest_ind(b , c, equal_var=True, alternative ="two-sided")
 print('The t-stat is {}'.format(t_stat))
-print('The P-Value is {}'.format(p_value))
+print('The P-Value is {}'.format(t_testp_value))
 
 # Check if we should support or not the null hypothesis if pvalue > 0.05:
-if p_value > 0.05:
-    print('For the selected variables, Setosa Petal length & Versicolor Petal length, We support the null hypothesis, the mean values do not vary by a statistically significant amount')
+if t_testp_value > 0.05:
+    print('For the selected variables: Virginica Petal length & Versicolor Petal lengths, We supporfail to reject the null hypothesis, the mean values do not vary by a statistically significant amount')
 else:
-    print('For the selected variables, Setosa Petal length & Versicolor Petal length, We reject the null hypothesis, there is a statistical difference between the means of these sets')
+    print('For the selected variables: Virginica Petal length & Versicolor Petal lengths, We reject the null hypothesis, there is a statistical difference between the means of these sets')
+print('\n')
 
 
+# perform Analysis of Variables (ANOVA) on the datasets to see determine if there is a significant difference between three or more groups. 
+# H0 (null hypothesis assumes all means are equal)
+# H1 (null hypothesis states at least one population mean that differs from the rest)
+
+f_statistic, ANOVAp_value = st.f_oneway(df1['Petal Length'], df2['Petal Length'], df3['Petal Length'])
+print('ANOVA Results - analyses between more than 2 sets of variables')
+print(f"F-statistic: {f_statistic}")
+print(f"P-value: {ANOVAp_value}")
+
+if ANOVAp_value > 0.05:
+    print('For the selected variables: Setosa, Versicolor & Virginica Petal lengths, We fail to reject the null hypothesis, the mean values do not vary by a statistically significant amount')
+else:
+    print('For the selected variables: Setosa, Versicolor & Virginica Petal lengths, We reject the null hypothesis, there is a statistical difference between the means of these sets')
+print('\n')
+
+
+# Generate a pairplot to view all data plotted, seperated by variables. 
+sns.pairplot(df, hue = 'Species')
+pt.show()
+pt.savefig('pairplot.png')
 
 # print description on screen
 # print(describe)
