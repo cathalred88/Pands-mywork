@@ -267,9 +267,6 @@ sns.pairplot(df, hue = 'Species')
 pt.show()
 pt.savefig('pairplot.png')
 
-#print description on screen
-print(describe)
-
 with open(FILENAMEOUTPUT, "wt") as f:
     f.write(str(describe))
 print('\n')
