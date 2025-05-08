@@ -264,8 +264,8 @@ print('\n')
 
 # Generate a pairplot to view all data plotted, seperated by variables. 
 sns.pairplot(df, hue = 'Species')
-pt.show()
 pt.savefig('pairplot.png')
+pt.show()
 
 with open(FILENAMEOUTPUT, "wt") as f:
     f.write(str(describe))
