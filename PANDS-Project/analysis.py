@@ -136,7 +136,7 @@ ax12 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Petal Length"
 labels = "Iris-Setosa", "Iris-Versicolor", "Iris-Virginica"
 pt.legend(labels)
 pt.savefig('HistogramPetalLenght.png')
-pt.show()
+
 
 # Histogram for petal width:
 ax13 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Petal Width","Species"], title = 'Petal widths for each species', xlabel = 'Petal width in cm', ylabel = 'Frequency',edgecolor = "black")
@@ -144,7 +144,7 @@ ax14 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Petal Width"
 ax15 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Petal Width","Species"], xlabel = 'Petal width in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax13)
 pt.legend(labels)
 pt.savefig('HistogramPetalWidth.png')
-pt.show()
+
 
 # Histogram for sepal length:
 ax16 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Sepal Length","Species"], title = 'Sepal lengths for each species', xlabel = 'Sepal length in cm', ylabel = 'Frequency',edgecolor = "black")
@@ -152,7 +152,7 @@ ax17 = df2.plot(kind = 'hist', label = 'Iris-Versicolor', column =["Sepal Length
 ax18 = df3.plot(kind = 'hist', label = 'Iris-Virginica', column =["Sepal Length","Species"], xlabel = 'Sepal length in cm', ylabel = 'Frequency', edgecolor = "black", ax = ax16)
 pt.legend(labels)
 pt.savefig('HistogramSepalLenght.png')
-pt.show()
+
 
 # Histogram for sepal width:
 ax19 = df1.plot(kind = 'hist', label = 'Iris-Setosa', column =["Sepal Width","Species"], title = 'Sepal Widths for each species', xlabel = 'Sepal Width in cm', ylabel = 'Frequency',edgecolor = "black")
@@ -169,16 +169,16 @@ pt.show()
 fig, axes = pt.subplots(nrows=1, ncols=4, sharex = True, sharey = True)
 
 # Boxplot for Sepal Width
-ax22 = df1.plot(kind = 'box', column = ["Sepal Width"], positions = [1] ,title = 'Sepal Widths', xlabel= 'Setosa', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'red', ax=axes[0] )
-ax23 = df2.plot(kind = 'box', column = ["Sepal Width"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax22)
-ax24 = df3.plot(kind = 'box', column = ["Sepal Width"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax22 )
+ax22 = df1.plot(kind = 'box', column = ["Sepal Width"], positions = [1] ,title = 'Sepal Widths', ylabel = 'Sepal Width in cm', patch_artist=True, color = 'red', ax=axes[0] )
+ax23 = df2.plot(kind = 'box', column = ["Sepal Width"], positions = [2] ,  patch_artist=True, color = 'green', ax = ax22)
+ax24 = df3.plot(kind = 'box', column = ["Sepal Width"], positions = [3] ,  patch_artist=True, color = 'blue', ax = ax22 )
 ax22.set_ylim(0.0, 8.0)
 ax22.tick_params(axis='x', rotation=90)
 
 # Boxplot for Petal Width
-ax25 = df1.plot(kind = 'box', column = ["Petal Width"], positions = [1] ,title = 'Petal Widths', xlabel= 'Setosa', ylabel = 'Petal Width in cm', patch_artist=True, color = 'red',ax=axes[1] )
-ax26 = df2.plot(kind = 'box', column = ["Petal Width"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax25)
-ax27 = df3.plot(kind = 'box', column = ["Petal Width"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax25 )
+ax25 = df1.plot(kind = 'box', column = ["Petal Width"], positions = [1] ,title = 'Petal Widths', ylabel = 'Petal Width in cm', patch_artist=True, color = 'red',ax=axes[1] )
+ax26 = df2.plot(kind = 'box', column = ["Petal Width"], positions = [2] ,  patch_artist=True, color = 'green', ax = ax25)
+ax27 = df3.plot(kind = 'box', column = ["Petal Width"], positions = [3] ,  patch_artist=True, color = 'blue', ax = ax25 )
 ax25.set_ylim(0.0, 8.0)
 ax25.tick_params(axis='x', rotation=90)
 
@@ -190,9 +190,9 @@ ax28.set_ylim(0.0, 8.0)
 ax28.tick_params(axis='x', rotation=90)
 
 # Boxplot for Petal Length
-ax31 = df1.plot(kind = 'box', column = ["Petal Length"], positions = [1] , title = 'Petal Length', xlabel= 'Setosa', ylabel = 'Petal Length in cm', patch_artist=True, color = 'red', ax=axes[3] )
-ax32 = df2.plot(kind = 'box', column = ["Petal Length"], positions = [2] , xlabel= 'Versicolor', patch_artist=True, color = 'green', ax = ax31)
-ax33 = df3.plot(kind = 'box', column = ["Petal Length"], positions = [3] , xlabel= 'Virginica', patch_artist=True, color = 'blue', ax = ax31)
+ax31 = df1.plot(kind = 'box', column = ["Petal Length"], positions = [1] , title = 'Petal Length', ylabel = 'Petal Length in cm', patch_artist=True, color = 'red', ax=axes[3] )
+ax32 = df2.plot(kind = 'box', column = ["Petal Length"], positions = [2] ,  patch_artist=True, color = 'green', ax = ax31)
+ax33 = df3.plot(kind = 'box', column = ["Petal Length"], positions = [3] , patch_artist=True, color = 'blue', ax = ax31)
 ax31.set_ylim(0.0, 8.0)
 ax31.tick_params(axis='x', rotation=90)
 
